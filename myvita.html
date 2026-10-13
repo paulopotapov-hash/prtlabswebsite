@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="myVita is a digital healthcare platform currently under development by PRT Labs, designed to simplify health information management.">
+  <meta name="theme-color" content="#050505">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23050505'/%3E%3Ctext x='50' y='68' font-family='system-ui' font-size='60' font-weight='600' fill='%23C9A56A' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>PRT Labs | myVita</title>
+  <style>
+    :root{
+      --bg:#050505;
+      --bg-light:#0a0a0a;
+      --text:#F2EFE9;
+      --gold:#C9A56A;
+      --gold-light:#E3C58C;
+      --muted:#9A958B;
+      --border:1px solid var(--gold);
+      --border-subtle:1px solid rgba(201,165,106,0.2);
+      --tr:all 0.4s ease;
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      :root{--tr:none}
+      *{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
+      html{scroll-behavior:auto}
+    }
+
+    *{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Outfit',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-weight:300;overflow-x:hidden}
+
+    .container{max-width:1280px;margin:0 auto;padding:0 2rem}
+
+    /* Header */
+    header{padding:1.5rem 0;position:relative;z-index:100;background:var(--bg-light);border-bottom:var(--border-subtle)}
+    .header-content{display:flex;justify-content:space-between;align-items:center;max-width:1280px;margin:0 auto;padding:0 2rem}
+    .header-logo{display:flex;align-items:center;gap:1rem}
+    .header-logo .back-link{font-size:0.875rem;color:var(--muted);text-decoration:none;transition:var(--tr)}
+    .header-logo .back-link:hover{color:var(--gold)}
+    .header-logo .back-link:focus-visible{outline:1px solid var(--gold);outline-offset:2px}
+    .logo-svg{width:120px;height:auto}
+    @media(max-width:767px){.logo-svg{width:100px}}
+
+    .header-nav{display:flex;align-items:center;gap:2rem}
+    @media(max-width:767px){.header-nav{flex-wrap:wrap;gap:1rem;margin-top:1rem}}
+    .header-nav a{color:var(--text);text-decoration:none;font-size:0.875rem;font-weight:400;letter-spacing:0.05em;transition:var(--tr);position:relative}
+    .header-nav a.active{color:var(--gold)}
+    .header-nav a:hover,.header-nav a:focus{color:var(--gold-light)}
+    .header-nav a.contact-cta{color:var(--gold);border:1px solid rgba(201,165,106,0.3);padding:0.3rem 0.8rem;border-radius:2px}
+    .header-nav a.contact-cta:hover,.header-nav a.contact-cta:focus{border-color:var(--gold-light)}
+    .header-nav a:focus-visible{outline:1px solid var(--gold);outline-offset:2px}
+
+    /* Skip Link */
+    .skip-link{position:absolute;left:-9999px;top:0;background:var(--gold);color:var(--bg);padding:1rem;z-index:1000;transition:left 0.3s;text-decoration:none}
+    .skip-link:focus{left:1rem!important;top:1rem!important;}
+
+    /* Hero */
+    .page-hero{padding:4rem 0 2rem;background:var(--bg-light)}
+    .page-hero .container{text-align:center}
+    .page-hero .product-badge{display:inline-block;background:rgba(201,165,106,0.1);color:var(--gold);font-size:0.75rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:2px;margin-bottom:1.5rem}
+    .page-hero h1{font-size:clamp(2.5rem,6vw,4rem);font-weight:300;line-height:1.1;color:var(--text);margin-bottom:1rem}
+    .page-hero .subtitle{font-size:clamp(1.1rem,2.5vw,1.35rem);color:var(--muted);max-width:680px;margin:0 auto 2rem}
+    .page-hero .status{color:var(--gold);font-size:0.875rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:0.5rem}
+    .page-hero .status::before{content:'';width:8px;height:8px;background:var(--gold);border-radius:50%;opacity:0.6}
+
+    /* Sections */
+    .section{padding:6rem 0}
+    @media(max-width:767px){.section{padding:4rem 0}}
+    .section-label{font-size:0.75rem;font-weight:500;letter-spacing:0.2em;color:var(--gold);margin-bottom:1rem}
+    .section h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:400;line-height:1.2;margin-bottom:1.5rem}
+    .section>.container>p{font-size:clamp(1rem,2vw,1.125rem);color:var(--muted);max-width:680px;margin-bottom:2rem}
+    .section p + p{margin-top:1.5rem}
+
+    /* Vision Section */
+    .vision-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2rem}
+    @media(max-width:767px){.vision-grid{grid-template-columns:1fr;gap:2rem;text-align:center}}
+    .vision-text{text-align:left}
+    @media(max-width:767px){.vision-text{text-align:center}}
+    .vision-visual{position:relative;height:300px;background:linear-gradient(135deg,rgba(201,165,106,0.05) 0%,rgba(201,165,106,0.1) 50%,rgba(201,165,106,0.05) 100%);border-radius:8px;overflow:hidden}
+    .vision-visual::before{content:'';position:absolute;inset:0;background:var(--bg-light)}
+    .vision-lines{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1rem}
+    .vision-line{width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:1px}
+
+    /* Problems Section */
+    .problems-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem}
+    @media(max-width:767px){.problems-grid{grid-template-columns:1fr;gap:1.5rem}}
+    .problem-item{background:var(--bg-light);border:var(--border-subtle);border-radius:8px;padding:2rem}
+    .problem-item .icon{color:var(--gold);font-size:2rem;margin-bottom:1rem}
+    .problem-item h3{font-size:1.125rem;font-weight:500;color:var(--text);margin-bottom:0.75rem}
+    .problem-item p{color:var(--muted);font-size:0.95rem;line-height:1.6;margin:0}
+
+    /* Dashboard Preview */
+    .dashboard-section{background:var(--bg-light)}
+    .dashboard-preview{background:rgba(255,255,255,0.02);border:var(--border-subtle);border-radius:8px;padding:2rem;margin-top:2rem;position:relative;overflow:hidden}
+    .dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    @media(max-width:767px){.dashboard-grid{grid-template-columns:1fr;gap:1rem}}
+    .dashboard-card{background:rgba(255,255,255,0.015);border:1px solid rgba(201,165,106,0.15);border-radius:6px;padding:1.2rem}
+    .dashboard-card-header{display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--gold);font-weight:500;letter-spacing:0.05em;margin-bottom:0.75rem}
+    .dashboard-card-header::before{content:'';width:8px;height:8px;background:var(--gold);border-radius:50%;opacity:0.6}
+    .dashboard-card-title{font-size:0.9rem;color:var(--text);font-weight:500;margin-bottom:0.5rem}
+    .dashboard-card-value{font-size:1.1rem;color:var(--gold-light);font-weight:600;margin-bottom:0.5rem}
+    .dashboard-card-meta{font-size:0.75rem;color:var(--muted)}
+    .dashboard-note{font-size:0.75rem;color:var(--muted);font-style:italic;text-align:center;margin-top:2rem;padding:1rem;background:rgba(201,165,106,0.03);border-radius:4px}
+
+    /* CTA Section */
+    .cta-section{text-align:center;padding:4rem 0}
+    .cta-section h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:400;line-height:1.2;margin-bottom:1rem}
+    .cta-section p{color:var(--muted);max-width:500px;margin:0 auto 2rem}
+    .cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .cta-button{color:var(--gold);text-decoration:none;font-size:0.9rem;font-weight:500;letter-spacing:0.05em;display:inline-block;padding:0.8rem 1.5rem;border:1px solid rgba(201,165,106,0.3);border-radius:4px;transition:var(--tr)}
+    .cta-button:hover{background:rgba(201,165,106,0.1);border-color:var(--gold)}
+    .cta-button:focus-visible{outline:1px solid var(--gold);outline-offset:2px}
+    .cta-button.secondary{color:var(--text);border-color:rgba(255,255,255,0.1)}
+    .cta-button.secondary:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.2)}
+
+    /* Footer */
+    footer{padding:4rem 0 2rem;border-top:var(--border-subtle);background:var(--bg)}
+    .footer-content{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem}
+    @media(max-width:767px){.footer-content{flex-direction:column;gap:2rem}}
+    .footer-brand h3{font-size:1rem;font-weight:500;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.5rem}
+    .footer-brand p{color:var(--muted);font-size:0.875rem;line-height:1.6;margin:0}
+    .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:1rem}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;transition:var(--tr)}
+    .footer-links a:hover,.footer-links a:focus{color:var(--gold-light)}
+    .footer-links a:focus-visible{outline:1px solid var(--gold);outline-offset:2px}
+    .copyright{color:var(--muted);font-size:0.875rem;margin-top:2rem}
+
+    /* Animations */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+    .reveal.is-visible{opacity:1;transform:translateY(0)}
+    @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+    a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
+    a:focus-visible,button:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="header-content">
+      <div class="header-logo">
+        <a href="products.html" class="back-link">&larr; Back to Products</a>
+        <a href="index.html" aria-label="PRT Labs Home">
+          <svg class="logo-svg" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PRT Labs">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C9A56A"/>
+                <stop offset="100%" stop-color="#E3C58C"/>
+              </linearGradient>
+            </defs>
+            <text x="0" y="38" font-family="Outfit,system-ui" font-size="32" font-weight="600" fill="url(#logoGrad)" letter-spacing="-.05em">PRT</text>
+            <path d="M22 12 L26 8 M26 8 L30 8" stroke="#C9A56A" stroke-width="1" stroke-linecap="round" fill="none"/>
+            <circle cx="26" cy="8" r="1" fill="#C9A56A"/>
+            <circle cx="30" cy="8" r="1" fill="#C9A56A"/>
+            <text x="0" y="56" font-family="Outfit,system-ui" font-size="14" font-weight="300" fill="#C9A56A" letter-spacing=".2em">LABS</text>
+          </svg>
+        </a>
+      </div>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="contact.html" class="contact-cta">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="product-badge">PRT Labs Product</span>
+        <h1>myVita</h1>
+        <p class="subtitle">A digital healthcare platform currently under development.</p>
+        <p class="status">In development</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-label">VISION</div>
+        <div class="vision-grid">
+          <div class="vision-text">
+            <h2>Simplifying health information.</h2>
+            <p>myVita aims to make managing health information more accessible, organized, and user-friendly for patients and healthcare professionals alike.</p>
+            <p>The platform is designed to help people better understand and manage their health data, with a focus on clarity and usability.</p>
+          </div>
+          <div class="vision-visual">
+            <div class="vision-lines">
+              <div class="vision-line" style="width:80%;transform:rotate(45deg)"></div>
+              <div class="vision-line" style="width:60%;transform:rotate(-45deg)"></div>
+              <div class="vision-line" style="width:70%;transform:rotate(90deg)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background:var(--bg-light)">
+      <div class="container">
+        <div class="section-label">PROBLEMS WE'RE SOLVING</div>
+        <h2>Health information, reimagined.</h2>
+        <p>Modern healthcare generates vast amounts of data. myVita is being developed to help make sense of it all.</p>
+        <div class="problems-grid">
+          <article class="problem-item">
+            <div class="icon">&#9733;</div>
+            <h3>Fragmented information</h3>
+            <p>Health data is often scattered across multiple systems and providers, making it difficult to get a complete picture.</p>
+          </article>
+          <article class="problem-item">
+            <div class="icon">&#9881;</div>
+            <h3>Complex interfaces</h3>
+            <p>Many health platforms are designed for specialists, not patients. We aim to create something intuitive and human-centered.</p>
+          </article>
+          <article class="problem-item">
+            <div class="icon">&#128197;</div>
+            <h3>Accessibility barriers</h3>
+            <p>Health information should be accessible to everyone, regardless of technical ability or health literacy.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-label">PLATFORM PREVIEW</div>
+        <h2>Concept demonstration.</h2>
+        <p>The following is a visual concept of how myVita might organize health information. This is strictly illustrative and represents our vision, not a finished product.</p>
+        <div class="dashboard-preview">
+          <div class="dashboard-grid">
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">Appointments</div>
+              <div class="dashboard-card-title">Next Visit</div>
+              <div class="dashboard-card-value">Dr. Maria Silva</div>
+              <div class="dashboard-card-meta">Tomorrow, 10:00 AM</div>
+            </div>
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">Medications</div>
+              <div class="dashboard-card-title">Prescriptions</div>
+              <div class="dashboard-card-value">3 Active</div>
+              <div class="dashboard-card-meta">2 Refills due</div>
+            </div>
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">Documents</div>
+              <div class="dashboard-card-title">Records</div>
+              <div class="dashboard-card-value">12 Files</div>
+              <div class="dashboard-card-meta">Last updated: Oct 10</div>
+            </div>
+          </div>
+          <p class="dashboard-note">Illustrative concept only. Actual features and design may vary significantly as development progresses.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" style="background:var(--bg-light)">
+      <div class="container">
+        <div class="section-label">DEVELOPMENT</div>
+        <h2>Where we are now.</h2>
+        <p>myVita is currently in the development phase. We are actively working on the platform's architecture, user experience, and core functionality.</p>
+        <p>Our focus is on building a solid foundation that prioritizes security, privacy, and usability from day one.</p>
+        <p>We are not yet accepting users or partners, but we welcome inquiries from those interested in the vision or potential collaboration.</p>
+      </div>
+    </section>
+
+    <section class="section cta-section reveal">
+      <div class="container">
+        <h2>Interested in learning more?</h2>
+        <p>If you're interested in the myVita vision or would like to discuss potential collaboration, we'd love to hear from you.</p>
+        <div class="cta-buttons">
+          <a href="mailto:prtlabs.official@gmail.com" class="cta-button">Email us &rarr;</a>
+          <a href="contact.html" class="cta-button secondary">Contact page</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>PRT LABS</h3>
+          <p>Thoughtful technology.<br>Real impact.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="products.html">Products</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+      <p class="copyright">&copy; PRT Labs <span id="year">2026</span></p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var yearEl = document.getElementById('year');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reducedMotion && 'IntersectionObserver' in window) {
+        var sections = document.querySelectorAll('.reveal');
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            }
+          });
+        }, { root: null, rootMargin: '0px', threshold: 0.1 });
+        sections.forEach(function(section) { observer.observe(section); });
+      }
+
+      var skipLink = document.querySelector('.skip-link');
+      if (skipLink) {
+        skipLink.addEventListener('focus', function() { skipLink.style.left = '1rem'; skipLink.style.top = '1rem'; });
+        skipLink.addEventListener('blur', function() { skipLink.style.left = '-9999px'; skipLink.style.top = '0'; });
+      }
+    })();
+  </script>
+  <noscript><style>.reveal{opacity:1;transform:none;}</style></noscript>
+</body>
+</html>
